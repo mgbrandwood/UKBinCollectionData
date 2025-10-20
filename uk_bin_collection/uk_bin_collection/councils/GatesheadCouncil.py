@@ -114,7 +114,7 @@ class CouncilClass(AbstractGetBinDataClass):
                 f.write(driver.page_source)
             
             # Look for any element containing collection/bin text
-            collection_elements = soup.find_all(text=lambda text: text and any(word in text.lower() for word in ["collection", "bin", "refuse", "recycling", "waste"]))
+            collection_elements = soup.find_all(text=lambda text: text and any(word in text.lower() for word in ["collection", "household", "garden", "bin", "refuse", "recycling", "waste"]))
             
             if not collection_elements:
                 raise ValueError("Could not find collections data in page source - saved debug_page.html")
@@ -147,7 +147,7 @@ class CouncilClass(AbstractGetBinDataClass):
                 lines = text_content.split('\n')
                 for i, line in enumerate(lines):
                     line = line.strip()
-                    if any(word in line.lower() for word in ['collection', 'bin', 'refuse', 'recycling', 'waste']):
+                    if any(word in line.lower() for word in ['collection', 'household', 'garden', 'bin', 'refuse', 'recycling', 'waste']):
                         # Look for dates in this line or nearby lines
                         for j in range(max(0, i-2), min(len(lines), i+3)):
                             date_match = re.search(r'\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b|\b\d{1,2}\s+\w+\s+\d{4}\b', lines[j])
